@@ -14,10 +14,11 @@ gStartTime = 0
 gEndTime = 0
 
 #config
-concurrent = 100
-records = 100000 #6000000 #6 million
+records = sys.argv[1]       #6000000 #6 million
+concurrent = sys.argv[2]
 
 mylock = threading.RLock()
+
 class writeThread(threading.Thread):
     def __init__(self, threadId, recordsPerThread):
         threading.Thread.__init__(self, name = "Thread_%s" % threadId)
@@ -58,12 +59,13 @@ class writeThread(threading.Thread):
             tresult = self.client.get('test_ns:test_1'.encode(), tget)
             #print(tresult)
 
-recordsPerThread = int(records / concurrent)
-gStartTime = time.time()
-for threadId in range(0, concurrent):
-    t = writeThread(threadId, recordsPerThread)
-    t.start()
-print("%d thread created, each thread will write %d records" % (concurrent, recordsPerThread))
+if __name__ == "__main__":
+    recordsPerThread = int(records / concurrent)
+    gStartTime = time.time()
+    for threadId in range(0, concurrent):
+        t = writeThread(threadId, recordsPerThread)
+        t.start()
+    print("%d thread created, each thread will write %d records" % (concurrent, recordsPerThread))
 
 
 
