@@ -15,8 +15,8 @@ gEndTime = 0
 md5 = hashlib.md5()
 
 #config
-records = sys.argv[1]       #6000000 #6 million
-concurrent = sys.argv[2]
+records = int(sys.argv[1])       #6000000 #6 million
+concurrent = int(sys.argv[2])
 
 mylock = threading.RLock()
 
