@@ -49,9 +49,8 @@ class writeThread(threading.Thread):
         print(self.getName(), "Start write")
 
         for i in range(0, self.recordsPerThread):
-            #rowkey = hashlib.md5(str(random.randrange(100000)).encode('utf-8')).hexdigest()
-            #print(str(self.threadId) + " : " + str(self.threadId * self.recordsPerThread + i))
-            rowkey = hashlib.md5(str(self.threadId * self.recordsPerThread + i).encode('utf-8')).hexdigest()
+            rowkey = hashlib.md5(str(random.randrange(100000000)).encode('utf-8')).hexdigest()
+            #rowkey = hashlib.md5(str(self.threadId * self.recordsPerThread + i).encode('utf-8')).hexdigest()
             put_columns = [
                     TColumnValue('cf_1'.encode(), 'col_1'.encode(), 'value_1'.encode()),
                     TColumnValue('cf_1'.encode(), 'col_2'.encode(), 'value_2'.encode()),

@@ -53,8 +53,8 @@ class writeThread(threading.Thread):
                     TColumn('cf_1'.encode(), 'col_2'.encode())
                 ]
 
-            #rowkey = hashlib.md5(str(random.randrange(100000)).encode('utf-8')).hexdigest()
-            rowkey = hashlib.md5(str(self.threadId * self.recordsPerThread + i).encode('utf-8')).hexdigest()
+            rowkey = hashlib.md5(str(random.randrange(100000000)).encode('utf-8')).hexdigest()
+            #rowkey = hashlib.md5(str(self.threadId * self.recordsPerThread + i).encode('utf-8')).hexdigest()
             tget = TGet(rowkey.encode(), get_columns)
             tresult = self.client.get('test_ns:test_1'.encode(), tget)
             #print(tresult)
