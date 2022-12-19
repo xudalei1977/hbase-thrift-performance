@@ -65,7 +65,7 @@ if __name__ == "__main__":
     for threadId in range(0, concurrent):
         t = writeThread(threadId, recordsPerThread)
         t.start()
-    print("%d thread created, each thread will write %d records" % (concurrent, recordsPerThread))
+    print("%d thread created, each thread will read %d records" % (concurrent, recordsPerThread))
 
 
 
