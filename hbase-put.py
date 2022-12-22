@@ -15,7 +15,7 @@ gEndTime = 0
 md5 = hashlib.md5()
 
 #config
-records = int(sys.argv[1])       #6000000 #6 million
+recordsPerThread = int(sys.argv[1])       #6000000 #6 million
 concurrent = int(sys.argv[2])
 
 mylock = threading.RLock()
@@ -62,7 +62,6 @@ class writeThread(threading.Thread):
             self.client.put("test_ns:test_1".encode(), tput)
 
 if __name__ == "__main__":
-    recordsPerThread = int(records / concurrent)
     gStartTime = time.time()
     for threadId in range(0, concurrent):
         t = writeThread(threadId, recordsPerThread)

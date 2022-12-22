@@ -14,7 +14,7 @@ gStartTime = 0
 gEndTime = 0
 
 #config
-records = int(sys.argv[1])       #6000000 #6 million
+recordsPerThread = int(sys.argv[1])       #6000000 #6 million
 concurrent = int(sys.argv[2])
 
 mylock = threading.RLock()
@@ -60,7 +60,6 @@ class writeThread(threading.Thread):
             #print(tresult)
 
 if __name__ == "__main__":
-    recordsPerThread = int(records / concurrent)
     gStartTime = time.time()
     for threadId in range(0, concurrent):
         t = writeThread(threadId, recordsPerThread)
