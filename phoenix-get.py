@@ -24,7 +24,7 @@ class readThread(threading.Thread):
         self.threadId = threadId
 
         database_url = 'http://localhost:8765/'
-        conn = phoenixdb.connect(database_url, autocommit=True)
+        self.conn = phoenixdb.connect(database_url, autocommit=True)
 
     def run(self):
         print("********** %s start at := " % (self.getName()))
@@ -38,15 +38,15 @@ class readThread(threading.Thread):
         gReadRecord += 1
         print("%s done, %s seconds past, %d reocrds got" % (self.getName(), gEndTime - gStartTime, gReadRecord))
         mylock.release()
-        conn.close()
+        self.conn.close()
              
     def read_phoenix(self):
-        print(self.getName(), "Start write")
-
-        cursor = conn.cursor(cursor_factory = phoenixdb.cursor.DictCursor)
-        cursor.execute("SELECT PK FROM \"customer\" where PK = ? limit ?", ('abbott_aaliyah_5802042731', 1))
-        print(cursor.fetchone()['PK'])
-        #print(tresult)
+        print(self.getName(), "Start read")
+        for i in range(0, self.recordsPerThread):
+            cursor = self.conn.cursor(cursor_factory = phoenixdb.cursor.DictCursor)
+            cursor.execute("SELECT PK FROM \"customer\" where PK = ? limit ?", ('abbott_aaliyah_5802042731', 1))
+            print(cursor.fetchone()['PK'])
+            #print(tresult)
 
 if __name__ == "__main__":
     gStartTime = time.time()
