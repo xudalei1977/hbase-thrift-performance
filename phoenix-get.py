@@ -31,7 +31,7 @@ class readThread(threading.Thread):
         global gEndTime
         global gReadRecord
         
-        self.read_hbase()
+        self.read_phoenix()
 
         mylock.acquire()
         gEndTime = time.time()
